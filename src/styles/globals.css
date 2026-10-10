@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter-tight";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme {
+  --color-paper: #f1f0ea;
+  --color-paper-2: #e8e7df;
+  --color-ink: #141414;
+  --color-ink-soft: #141414a6;
+  --color-line: #14141426;
+  --color-signal: #e8290b;
+  --font-sans: "Inter Tight Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --ease-reveal: cubic-bezier(.32,.04,.18,1);
+  --ease-disclosure: cubic-bezier(.16,1,.3,1);
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  @keyframes marquee { to { transform: translateX(-50%); } }
+}
+
+html { background: var(--color-paper); color: var(--color-ink); scroll-behavior: auto; }
+body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+::selection { background: var(--color-signal); color: #fff; }
+
+/* grano de papel */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 90; opacity: .35; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.display { font-weight: 600; letter-spacing: -0.04em; line-height: .92; text-transform: uppercase; }
+.label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.hairline { border-color: var(--color-line); }
+
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html, a, button, [data-cursor] { cursor: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
